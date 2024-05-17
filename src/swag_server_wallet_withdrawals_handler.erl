@@ -971,6 +971,11 @@ get_request_spec('ListWithdrawals') ->
             rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
 , {required, false}]
         }},
+        {'externalID', #{
+            source => qs_val,
+            rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
+, {required, false}]
+        }},
         {'destinationID', #{
             source => qs_val,
             rules  => [{type, 'binary'}, {max_length, 40}, {min_length, 1}, true
