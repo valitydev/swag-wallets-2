@@ -2468,6 +2468,14 @@ get_raw() ->
           <<"maxLength">> => 40,
           <<"minLength">> => 1
         }, #{
+          <<"name">> => <<"externalID">>,
+          <<"in">> => <<"query">>,
+          <<"description">> => <<"Identifier of the external's ID">>,
+          <<"required">> => false,
+          <<"type">> => <<"string">>,
+          <<"maxLength">> => 40,
+          <<"minLength">> => 1
+        }, #{
           <<"name">> => <<"destinationID">>,
           <<"in">> => <<"query">>,
           <<"description">> => <<"Identifier of the destination">>,
