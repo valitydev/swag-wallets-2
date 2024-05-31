@@ -3304,6 +3304,9 @@ get_raw() ->
           <<"resource">> => #{
             <<"$ref">> => <<"#/definitions/DestinationResource">>
           },
+          <<"additionalAuthData">> => #{
+            <<"$ref">> => <<"#/definitions/DestinationAuthData">>
+          },
           <<"metadata">> => #{
             <<"type">> => <<"object">>,
             <<"example">> => #{
@@ -3322,6 +3325,20 @@ get_raw() ->
         <<"$ref">> => <<"#/definitions/DestinationStatus">>
       } ],
       <<"description">> => <<"Destination data">>
+    },
+    <<"DestinationAuthData">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"type">> ],
+      <<"discriminator">> => <<"type">>,
+      <<"properties">> => #{
+        <<"type">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"The auth data type of the destination.\n">>,
+          <<"enum">> => [ <<"SenderReceiverDestinationAuthData">> ]
+        }
+      },
+      <<"description">> => <<"Destination auth data to make withdrawals">>,
+      <<"x-discriminator-is-enum">> => true
     },
     <<"DestinationGrantRequest">> => #{
       <<"type">> => <<"object">>,
@@ -3855,6 +3872,31 @@ get_raw() ->
       <<"pattern">> => <<"^[A-Z]{3}$">>,
       <<"description">> => <<"Residence symbol code by standard [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1)\n">>,
       <<"example">> => <<"RUS">>
+    },
+    <<"SenderReceiverDestinationAuthData">> => #{
+      <<"allOf">> => [ #{
+        <<"$ref">> => <<"#/definitions/DestinationAuthData">>
+      }, #{
+        <<"type">> => <<"object">>,
+        <<"required">> => [ <<"receiverToken">>, <<"senderToken">> ],
+        <<"properties">> => #{
+          <<"senderToken">> => #{
+            <<"type">> => <<"string">>,
+            <<"example">> => <<"zu3TcwGI71Bpaaw2XkLWZXlhMdn4zpVzMQg9xMkh">>,
+            <<"description">> => <<"Token identifying the sender auth data">>,
+            <<"minLength">> => 1,
+            <<"maxLength">> => 1000
+          },
+          <<"receiverToken">> => #{
+            <<"type">> => <<"string">>,
+            <<"example">> => <<"zu3TcwGI71Bpaaw2XkLWZXlhMdn4zpVzMQg9xMkh">>,
+            <<"description">> => <<"Token identifying the receiver auth data">>,
+            <<"minLength">> => 1,
+            <<"maxLength">> => 1000
+          }
+        }
+      } ],
+      <<"description">> => <<"Both sender and receiver auth data refs">>
     },
     <<"SenderResource">> => #{
       <<"type">> => <<"object">>,
