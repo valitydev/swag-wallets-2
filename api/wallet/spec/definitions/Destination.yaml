@@ -35,6 +35,8 @@ allOf:
           - $ref: "#/definitions/CurrencyID"
       resource:
         $ref: "#/definitions/DestinationResource"
+      additionalAuthData:
+        $ref: "#/definitions/DestinationAuthData"
       metadata:
         description: |
           Some non-transparent for system set of data associated with this destination

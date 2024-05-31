@@ -1,0 +1,13 @@
+---
+description: Destination auth data to make withdrawals
+type: object
+discriminator: type
+required:
+  - type
+properties:
+  type:
+    description: |
+      The auth data type of the destination.
+    type: string
+    enum:
+      - SenderReceiverDestinationAuthData

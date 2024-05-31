@@ -1,0 +1,21 @@
+---
+description: Both sender and receiver auth data refs
+allOf:
+  - $ref: "#/definitions/DestinationAuthData"
+  - type: object
+    required:
+      - senderToken
+      - receiverToken
+    properties:
+      senderToken:
+        description: Token identifying the sender auth data
+        type: string
+        minLength: 1
+        maxLength: 1000
+        example: zu3TcwGI71Bpaaw2XkLWZXlhMdn4zpVzMQg9xMkh
+      receiverToken:
+        description: Token identifying the receiver auth data
+        type: string
+        minLength: 1
+        maxLength: 1000
+        example: zu3TcwGI71Bpaaw2XkLWZXlhMdn4zpVzMQg9xMkh
