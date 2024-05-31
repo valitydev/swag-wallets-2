@@ -2216,6 +2216,8 @@ definitions:
             example: USD
           resource:
             $ref: '#/definitions/DestinationResource'
+          additionalAuthData:
+            $ref: '#/definitions/DestinationAuthData'
           metadata:
             description: |
               Some non-transparent for system set of data associated with this destination
@@ -2230,6 +2232,19 @@ definitions:
             type: string
             example: '10036274'
       - $ref: '#/definitions/DestinationStatus'
+  DestinationAuthData:
+    description: Destination auth data to make withdrawals
+    type: object
+    discriminator: type
+    required:
+      - type
+    properties:
+      type:
+        description: |
+          The auth data type of the destination.
+        type: string
+        enum:
+          - SenderReceiverDestinationAuthData
   DestinationGrantRequest:
     description: Request for the permission to control the withdrawals to the destination
     type: object
@@ -2742,6 +2757,27 @@ definitions:
     type: string
     pattern: '^[A-Z]{3}$'
     example: RUS
+  SenderReceiverDestinationAuthData:
+    description: Both sender and receiver auth data refs
+    allOf:
+      - $ref: '#/definitions/DestinationAuthData'
+      - type: object
+        required:
+          - senderToken
+          - receiverToken
+        properties:
+          senderToken:
+            description: Token identifying the sender auth data
+            type: string
+            minLength: 1
+            maxLength: 1000
+            example: zu3TcwGI71Bpaaw2XkLWZXlhMdn4zpVzMQg9xMkh
+          receiverToken:
+            description: Token identifying the receiver auth data
+            type: string
+            minLength: 1
+            maxLength: 1000
+            example: zu3TcwGI71Bpaaw2XkLWZXlhMdn4zpVzMQg9xMkh
   SenderResource:
     description: The sender resource used to make transfers
     type: object
