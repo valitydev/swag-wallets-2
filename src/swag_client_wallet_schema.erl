@@ -3437,6 +3437,12 @@ get_raw() ->
           <<"minLength">> => 1,
           <<"maxLength">> => 1000
         },
+        <<"accountIdentityNumber">> => #{
+          <<"type">> => <<"string">>,
+          <<"description">> => <<"National identification number of the wallet owner">>,
+          <<"minLength">> => 1,
+          <<"maxLength">> => 100
+        },
         <<"provider">> => #{
           <<"type">> => <<"string">>,
           <<"example">> => <<"Paypal">>,
