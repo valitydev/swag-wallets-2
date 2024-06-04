@@ -3285,6 +3285,12 @@
           "minLength": 1,
           "maxLength": 1000
         },
+        "accountIdentityNumber": {
+          "description": "National identification number of the wallet owner",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
         "provider": {
           "description": "Digital wallet provider.\n\nThe set of providers available for making withdrawals can be found by calling\ncorresponding [operation](#operation/getWithdrawalMethods).\n",
           "type": "string",
