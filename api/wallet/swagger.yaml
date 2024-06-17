@@ -3310,6 +3310,35 @@ definitions:
               When specified, will be used to ensure idempotent processing of the operation.
             type: string
             example: '10036274'
+          quote:
+            description: Quote data for withdrawal
+            type: object
+            required:
+              - cashFrom
+              - cashTo
+              - createdAt
+              - expiresOn
+            properties:
+              cashFrom:
+                x-rebillyMerge:
+                  - $ref: '#/definitions/Asset'
+                  - description: Amount of funds in source currency
+                  - readOnly: true
+              cashTo:
+                x-rebillyMerge:
+                  - $ref: '#/definitions/Asset'
+                  - description: Amount of funds in target currency
+                  - readOnly: true
+              createdAt:
+                description: Date and time the quote was received
+                type: string
+                format: date-time
+                readOnly: true
+              expiresOn:
+                description: Quote expiration date and time
+                type: string
+                format: date-time
+                readOnly: true
       - $ref: '#/definitions/WithdrawalStatus'
   WithdrawalEvent:
     description: |
@@ -3615,6 +3644,67 @@ definitions:
           DIyfQ.XbPfbIHMI6arZ3Y922BhjWgQzWXcXNrz0ogtVhfEd2o
         description: |
           A token that gives the right to withdraw. Must be provided if the withdrawal is made through a _foreign_ fund recipient. The owner of the specified recipient can [grant this right](#operation/issueDestinationGrant)
+  WithdrawalReadQuote:
+    description: Quote data for withdrawal
+    type: object
+    required:
+      - cashFrom
+      - cashTo
+      - createdAt
+      - expiresOn
+    properties:
+      cashFrom:
+        description: Amount of funds in source currency
+        type: object
+        required:
+          - amount
+          - currency
+        properties:
+          amount:
+            description: |
+              The amount of money in minor units, for example, in cents
+            type: integer
+            format: int64
+            example: 1430000
+          currency:
+            description: |
+              Currency character code according to 
+              [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+            type: string
+            pattern: '^[A-Z]{3}$'
+            example: USD
+        readOnly: true
+      cashTo:
+        description: Amount of funds in target currency
+        type: object
+        required:
+          - amount
+          - currency
+        properties:
+          amount:
+            description: |
+              The amount of money in minor units, for example, in cents
+            type: integer
+            format: int64
+            example: 1430000
+          currency:
+            description: |
+              Currency character code according to 
+              [ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).
+            type: string
+            pattern: '^[A-Z]{3}$'
+            example: USD
+        readOnly: true
+      createdAt:
+        description: Date and time the quote was received
+        type: string
+        format: date-time
+        readOnly: true
+      expiresOn:
+        description: Quote expiration date and time
+        type: string
+        format: date-time
+        readOnly: true
   WithdrawalStatus:
     type: object
     properties:

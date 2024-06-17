@@ -4422,6 +4422,56 @@
               "description": "The unique identifier of the entity on your side.\n\nWhen specified, will be used to ensure idempotent processing of the operation.\n",
               "type": "string",
               "example": "10036274"
+            },
+            "quote": {
+              "description": "Quote data for withdrawal",
+              "type": "object",
+              "required": [
+                "cashFrom",
+                "cashTo",
+                "createdAt",
+                "expiresOn"
+              ],
+              "properties": {
+                "cashFrom": {
+                  "x-rebillyMerge": [
+                    {
+                      "$ref": "#/definitions/Asset"
+                    },
+                    {
+                      "description": "Amount of funds in source currency"
+                    },
+                    {
+                      "readOnly": true
+                    }
+                  ]
+                },
+                "cashTo": {
+                  "x-rebillyMerge": [
+                    {
+                      "$ref": "#/definitions/Asset"
+                    },
+                    {
+                      "description": "Amount of funds in target currency"
+                    },
+                    {
+                      "readOnly": true
+                    }
+                  ]
+                },
+                "createdAt": {
+                  "description": "Date and time the quote was received",
+                  "type": "string",
+                  "format": "date-time",
+                  "readOnly": true
+                },
+                "expiresOn": {
+                  "description": "Quote expiration date and time",
+                  "type": "string",
+                  "format": "date-time",
+                  "readOnly": true
+                }
+              }
             }
           }
         },
@@ -4771,6 +4821,76 @@
           "maxLength": 4000,
           "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5M\nDIyfQ.XbPfbIHMI6arZ3Y922BhjWgQzWXcXNrz0ogtVhfEd2o\n",
           "description": "A token that gives the right to withdraw. Must be provided if the withdrawal is made through a _foreign_ fund recipient. The owner of the specified recipient can [grant this right](#operation/issueDestinationGrant)\n"
+        }
+      }
+    },
+    "WithdrawalReadQuote": {
+      "description": "Quote data for withdrawal",
+      "type": "object",
+      "required": [
+        "cashFrom",
+        "cashTo",
+        "createdAt",
+        "expiresOn"
+      ],
+      "properties": {
+        "cashFrom": {
+          "description": "Amount of funds in source currency",
+          "type": "object",
+          "required": [
+            "amount",
+            "currency"
+          ],
+          "properties": {
+            "amount": {
+              "description": "The amount of money in minor units, for example, in cents\n",
+              "type": "integer",
+              "format": "int64",
+              "example": 1430000
+            },
+            "currency": {
+              "description": "Currency character code according to \n[ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n",
+              "type": "string",
+              "pattern": "^[A-Z]{3}$",
+              "example": "USD"
+            }
+          },
+          "readOnly": true
+        },
+        "cashTo": {
+          "description": "Amount of funds in target currency",
+          "type": "object",
+          "required": [
+            "amount",
+            "currency"
+          ],
+          "properties": {
+            "amount": {
+              "description": "The amount of money in minor units, for example, in cents\n",
+              "type": "integer",
+              "format": "int64",
+              "example": 1430000
+            },
+            "currency": {
+              "description": "Currency character code according to \n[ISO 4217](http://www.iso.org/iso/home/standards/currency_codes.htm).\n",
+              "type": "string",
+              "pattern": "^[A-Z]{3}$",
+              "example": "USD"
+            }
+          },
+          "readOnly": true
+        },
+        "createdAt": {
+          "description": "Date and time the quote was received",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "expiresOn": {
+          "description": "Quote expiration date and time",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
         }
       }
     },
