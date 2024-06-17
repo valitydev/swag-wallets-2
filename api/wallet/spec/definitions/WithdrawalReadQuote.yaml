@@ -1,0 +1,29 @@
+---
+description: Quote data for withdrawal
+type: object
+required:
+  - cashFrom
+  - cashTo
+  - createdAt
+  - expiresOn
+properties:
+  cashFrom:
+    x-rebillyMerge:
+      - $ref: "#/definitions/Asset"
+      - description: Amount of funds in source currency
+      - readOnly: true
+  cashTo:
+    x-rebillyMerge:
+      - $ref: "#/definitions/Asset"
+      - description: Amount of funds in target currency
+      - readOnly: true
+  createdAt:
+    description: Date and time the quote was received
+    type: string
+    format: date-time
+    readOnly: true
+  expiresOn:
+    description: Quote expiration date and time
+    type: string
+    format: date-time
+    readOnly: true
