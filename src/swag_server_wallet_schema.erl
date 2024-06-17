@@ -4369,6 +4369,9 @@ get_raw() ->
             <<"type">> => <<"string">>,
             <<"example">> => <<"10036274">>,
             <<"description">> => <<"The unique identifier of the entity on your side.\n\nWhen specified, will be used to ensure idempotent processing of the operation.\n">>
+          },
+          <<"quote">> => #{
+            <<"$ref">> => <<"#/definitions/Withdrawal_quote">>
           }
         }
       }, #{
@@ -4655,6 +4658,31 @@ get_raw() ->
         },
         <<"currencyFrom">> => <<"USD">>
       }
+    },
+    <<"WithdrawalReadQuote">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"cashFrom">>, <<"cashTo">>, <<"createdAt">>, <<"expiresOn">> ],
+      <<"properties">> => #{
+        <<"cashFrom">> => #{
+          <<"$ref">> => <<"#/definitions/WithdrawalQuote_cashFrom">>
+        },
+        <<"cashTo">> => #{
+          <<"$ref">> => <<"#/definitions/WithdrawalQuote_cashTo">>
+        },
+        <<"createdAt">> => #{
+          <<"type">> => <<"string">>,
+          <<"format">> => <<"date-time">>,
+          <<"description">> => <<"Date and time the quote was received">>,
+          <<"readOnly">> => true
+        },
+        <<"expiresOn">> => #{
+          <<"type">> => <<"string">>,
+          <<"format">> => <<"date-time">>,
+          <<"description">> => <<"Quote expiration date and time">>,
+          <<"readOnly">> => true
+        }
+      },
+      <<"description">> => <<"Quote data for withdrawal">>
     },
     <<"WithdrawalStatus">> => #{
       <<"type">> => <<"object">>,
@@ -5182,6 +5210,43 @@ get_raw() ->
         }
       },
       <<"description">> => <<"Amount of funds to be withdrawn">>
+    },
+    <<"Withdrawal_quote">> => #{
+      <<"type">> => <<"object">>,
+      <<"required">> => [ <<"cashFrom">>, <<"cashTo">>, <<"createdAt">>, <<"expiresOn">> ],
+      <<"properties">> => #{
+        <<"cashFrom">> => #{
+          <<"x-rebillyMerge">> => [ #{
+            <<"$ref">> => <<"#/definitions/Asset">>
+          }, #{
+            <<"description">> => <<"Amount of funds in source currency">>
+          }, #{
+            <<"readOnly">> => true
+          } ]
+        },
+        <<"cashTo">> => #{
+          <<"x-rebillyMerge">> => [ #{
+            <<"$ref">> => <<"#/definitions/Asset">>
+          }, #{
+            <<"description">> => <<"Amount of funds in target currency">>
+          }, #{
+            <<"readOnly">> => true
+          } ]
+        },
+        <<"createdAt">> => #{
+          <<"type">> => <<"string">>,
+          <<"format">> => <<"date-time">>,
+          <<"description">> => <<"Date and time the quote was received">>,
+          <<"readOnly">> => true
+        },
+        <<"expiresOn">> => #{
+          <<"type">> => <<"string">>,
+          <<"format">> => <<"date-time">>,
+          <<"description">> => <<"Quote expiration date and time">>,
+          <<"readOnly">> => true
+        }
+      },
+      <<"description">> => <<"Quote data for withdrawal">>
     },
     <<"WithdrawalQuote_cashFrom">> => #{
       <<"type">> => <<"object">>,
