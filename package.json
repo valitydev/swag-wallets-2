@@ -16,7 +16,7 @@
     "gulp-connect": "5.7.0",
     "gulp-util": "3.0.8",
     "json-merge-patch": "1.0.2",
-    "portfinder": "1.0.32",
+    "portfinder": "1.0.33",
     "shelljs": "0.8.5",
     "swagger-repo": "1.5.1",
     "swagger-ui": "5.17.1"
